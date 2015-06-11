@@ -1,0 +1,58 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 20px;
+}
+
+
+ul {
+  -webkit-padding-start: 0;
+}
+
+.main-container {
+  max-width: 800px;
+  margin: 20px auto;
+  box-shadow: 1px 4px 6px black;
+}
+
+.messageForm {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.form-group {
+  width: 90%;
+  margin: auto;
+}
+.form-control {
+  display: inline-block;
+  width: 90%;
+}
+
+.messageInput:focus {
+  border-color: black;
+}
+
+.panel-heading {
+  text-align: center;
+}
+
+.list-group-item {
+  border-bottom: 5px solid lightgray;
+}
+
+
+.hide {
+  display: none;
+}
+
+.complete  {
+  text-decoration: line-through;
+  color: lightgray;
+}
+
+
+.messageInput {
+  font-size: 18px;
+}
