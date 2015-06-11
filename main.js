@@ -6,6 +6,8 @@ var $list = $('.list-group');
 var $li = $('.message');
 var $messageForm = $('.messageForm')
 var $addInput = $('.messageInput')
+var $loginOverlay = $('.fullscreen')
+var $usernameInput = $('.usernameInput')
 var listTemplateString = "<li class='list-group-item message'><span class='listItem'><%= listItem %></span></li>";
 
 
@@ -19,7 +21,7 @@ var page = {
   //load to-do's
   },
   initEvents: function() {
-
+    $usernameInput.submit(page.hideOverlay);
     $messageForm.submit(page.newmessage);
   },
   newmessage: function(event) {
@@ -31,6 +33,9 @@ var page = {
     $list.append(result);
     $addInput.val("");
   },
+  hideOverlay: function(event) {
+    $loginOverlay.addClass('hide');
+  }
+}
 
   //ajax goes here
-}
