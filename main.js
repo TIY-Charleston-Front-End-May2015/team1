@@ -1,10 +1,6 @@
-
-$(document).ready(function () {
+$(document).ready(function(){
   page.init();
-});
-
-
-
+})
 // variables
 var $list = $('.list-group');
 var $li = $('.message');
@@ -15,81 +11,26 @@ var listTemplateString = "<li class='list-group-item message'><span class='listI
 
 var page = {
   url: "http://tiy-fee-rest.herokuapp.com/collections/nl",
-
   init: function () {
     page.initStyling();
     page.initEvents();
   },
-
-  initStyling: function () {
-    page.loadMessages();
+  initStyling: function(){
+  //load to-do's
   },
+  initEvents: function() {
 
-  initEvents: function () {
-
-  setInterval(function () {
-    page.loadMessages();
-  }, 1000);
-
-  $('.').on('click', page.addMessage);
-  $('.').on('click', '.', page.addUser);
-
-  addNewMessageToDOM: function (msg) {
-    page.loadTemplate("msgTemplate", msg, $target);
+    $messageForm.submit(page.newmessage);
   },
-  addAllMessagesToDOM: function (msgCollection) {
-    $('target').html('');
-    _.each(msgCollection, page.addNewMessageToDOM);
-  },
-  loadMessages: function () {
-    $.ajax({
-      url: page.url,
-      method: 'GET',
-      success: function (data) {
-        page.addAllMessagesToDOM(data);
-      },
-      error: function (err) {
-      }
-    });
-  },
-  createMessage: function (newMessage) {
-    $.ajax({
-      url: page.url,
-      method: 'POST',
-      data: newMessage,
-      success: function (data) {
-        page.addOneMessageToDOM(data);
-      },
-      error: function (err) {
-      }
-    });
-  },
-  deleteMsg: function(e) {
-    e.preventDefault();
-
-    })
-  },
-  addMessage: function (event) {
+  newmessage: function(event) {
     event.preventDefault();
-
-    // build an object that looks like our original data
-    var newMessage = {
-    sender:
-    timestamp:
-    id:
-    msgBody: $('input[name=""]').val(),
-  }
-    page.createMessage(newMessage);
-    // clear form
-    $('input, textarea').val("");
+    var compiledTemplate = _.template(listTemplateString);
+    var result = compiledTemplate({
+      listItem: $addInput.val()
+    });
+    $list.append(result);
+    $addInput.val("");
   },
 
-  loadTemplate: function (tmplName, data, $target) {
-    var compiledTmpl = _.template(page.getTemplate(tmplName));
-
-    $target.append(compiledTmpl(data));
-  },
-  getTemplate: function (name) {
-    return templates[name];
-  }
-};
+  //ajax goes here
+}
