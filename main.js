@@ -1,10 +1,21 @@
+
 $(document).ready(function () {
   page.init();
 });
 
-var page = {
 
-  url: "http://tiy-fee-rest.herokuapp.com/collections/team1",
+
+// variables
+var $list = $('.list-group');
+var $li = $('.message');
+var $messageForm = $('.messageForm')
+var $addInput = $('.messageInput')
+var listTemplateString = "<li class='list-group-item message'><span class='listItem'><%= listItem %></span></li>";
+
+
+var page = {
+  url: "http://tiy-fee-rest.herokuapp.com/collections/nl",
+
   init: function () {
     page.initStyling();
     page.initEvents();
