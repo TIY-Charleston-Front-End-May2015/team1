@@ -21,7 +21,7 @@ var page = {
   //load to-do's
   },
   initEvents: function() {
-    $usernameInput.submit(page.hideOverlay);
+    $('.pageWrapper').on('submit', $loginOverlay, page.hideOverlay );
     $messageForm.submit(page.newmessage);
   },
   newmessage: function(event) {
@@ -34,6 +34,7 @@ var page = {
     $addInput.val("");
   },
   hideOverlay: function(event) {
+    event.preventDefault;
     $loginOverlay.addClass('hide');
   }
 }
