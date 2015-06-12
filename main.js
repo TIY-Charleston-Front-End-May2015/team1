@@ -6,31 +6,88 @@ var $list = $('.list-group');
 var $li = $('.message');
 var $messageForm = $('.messageForm')
 var $addInput = $('.messageInput')
-var listTemplateString = "<li class='list-group-item message'><span class='listItem'><%= listItem %></span></li>";
+var $userForm = $('#usernameForm')
+var $userInput = $('#usernameInput')
+
 
 
 var page = {
-  url: "http://tiy-fee-rest.herokuapp.com/collections/nl",
+  url: "http://tiy-fee-rest.herokuapp.com/collections/YouveGotMail",
   init: function () {
     page.initStyling();
     page.initEvents();
   },
   initStyling: function(){
-  //load to-do's
+    page.loadMessages();
   },
   initEvents: function() {
-
     $messageForm.submit(page.newmessage);
+    $userForm.submit(page.addUser);
+  },
+  addNewMessageToDOM: function (msg) {
+    page.loadTemplate("message", msg, $list);
+  },
+  addAllMessagesToDOM: function (msgCollection) {
+    $('target').html('');
+    _.each(msgCollection, page.addNewMessageToDOM);
+  },
+  addUser: function (event) {
+    event.preventDefault();
+    var newUser = {
+    user: $userInput.val(),
+    }
+    $.ajax({
+      url: page.url,
+      method: 'POST',
+      data: {username: newUser.user},
+      success: function (data) {
+
+      },
+      error: function (err) {
+      }
+    });
   },
   newmessage: function(event) {
     event.preventDefault();
-    var compiledTemplate = _.template(listTemplateString);
-    var result = compiledTemplate({
-      listItem: $addInput.val()
-    });
-    $list.append(result);
+    // build an object that looks like our original data
+    var newUser = {
+    user: $addInput.val()
+    // sender:
+    }
+    page.createMessage(newMessage);
+    // clear form
     $addInput.val("");
   },
+  createMessage: function (newMessage) {
+    $.ajax({
+      url: page.url,
+      method: 'POST',
+      data: newMessage,
+      success: function (data) {
+        page.addNewMessageToDOM(data);
+      },
+      error: function (err) {
+      }
+    });
+  },
+  loadMessages: function () {
+    $.ajax({
+      url: page.url,
+      method: 'GET',
+      success: function (data) {
+        page.addAllMessagesToDOM(data);
+      },
+      error: function (err) {
+      }
+    });
+  },
+  loadTemplate: function (tmplName, data, $target) {
+    var compiledTmpl = _.template(page.getTemplate(tmplName));
 
-  //ajax goes here
+    $target.append(compiledTmpl(data));
+  },
+  getTemplate: function (name) {
+    return templates[name];
+  }
+
 }
