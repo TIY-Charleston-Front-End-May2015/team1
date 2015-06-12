@@ -1,6 +1,23 @@
 $(document).ready(function(){
   page.init();
-})
+  if (!($loginOverlay).hasClass('ignore')) {
+    setInterval(function (){
+      $.ajax({
+        url: page.url,
+        method: 'GET',
+        success: function (data) {
+          $(list).html("");
+          page.addAllMessagesToDOM(data.reverse())
+          console.log("it works?")
+        },
+        error: function (err) {
+          console.log('error')
+        }
+      })
+    }, 2000)
+  };
+});
+
 // variables
 var $list = $('.list-group');
 var $li = $('.message');
@@ -14,20 +31,24 @@ var user = "";
 
 
 
+
 var page = {
-  url: "http://tiy-fee-rest.herokuapp.com/collections/YouveGotMail13",
+  url: "http://tiy-fee-rest.herokuapp.com/collections/YouveGotMail16",
   init: function () {
     page.initStyling();
     page.initEvents();
+
+
   },
   initStyling: function(){
 
   },
   initEvents: function() {
+
     $('.pageWrapper').on('submit', $loginOverlay, page.hideOverlay );
     $messageForm.submit(page.newmessage);
     $userForm.submit(page.addUser);
-    setInterval(page.addAllMessagesToDOM(), 2000)
+
   },
 
   addNewMessageToDOM: function (msg) {
@@ -39,6 +60,8 @@ var page = {
   addAllMessagesToDOM: function (msgCollection) {
     // $('target').html('');
     _.each(msgCollection, page.addNewMessageToDOM);
+
+
   },
   addUser: function (event) {
     user = "";
@@ -56,8 +79,9 @@ var page = {
       error: function (err) {
       }
     });
-    $()
-    page.loadMessages();
+
+    page.loadMessages()
+
   },
   newmessage: function(event) {
     event.preventDefault();
@@ -66,12 +90,11 @@ var page = {
       sender: user
     }
     page.createMessage(newMessage);
-    // clear form
     $addInput.val("");
   },
   hideOverlay: function(event) {
     event.preventDefault;
-    $loginOverlay.addClass('hide');
+    $loginOverlay.addClass('ignore');
   },
   createMessage: function (newMessage) {
 
@@ -100,7 +123,7 @@ var page = {
   loadTemplate: function (tmplName, data, $target) {
     var compiledTmpl = _.template(page.getTemplate(tmplName));
 
-    $target.prepend(compiledTmpl(data));
+    $target.append(compiledTmpl(data));
   },
   getTemplate: function (name) {
     return templates[name];
