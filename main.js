@@ -10,6 +10,9 @@ var $loginOverlay = $('.fullscreen')
 var $usernameInput = $('.usernameInput')
 var $userForm = $('#usernameForm')
 var $userInput = $('#usernameInput')
+var timeStamp = ""
+
+
 
 var page = {
   url: "http://tiy-fee-rest.herokuapp.com/collections/YouveGotMail",
