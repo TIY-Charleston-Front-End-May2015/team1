@@ -15,7 +15,7 @@ var user = "";
 
 
 var page = {
-  url: "http://tiy-fee-rest.herokuapp.com/collections/YouveGotMail12",
+  url: "http://tiy-fee-rest.herokuapp.com/collections/YouveGotMail13",
   init: function () {
     page.initStyling();
     page.initEvents();
@@ -27,7 +27,7 @@ var page = {
     $('.pageWrapper').on('submit', $loginOverlay, page.hideOverlay );
     $messageForm.submit(page.newmessage);
     $userForm.submit(page.addUser);
-
+  setInterval(page.addAllMessagesToDOM(), 2000)
   },
 
   addNewMessageToDOM: function (msg) {
@@ -57,7 +57,7 @@ var page = {
       }
     });
 
-    page.loadMessages();
+   page.loadMessages();
   },
   newmessage: function(event) {
     event.preventDefault();
@@ -100,7 +100,7 @@ var page = {
   loadTemplate: function (tmplName, data, $target) {
     var compiledTmpl = _.template(page.getTemplate(tmplName));
 
-    $target.append(compiledTmpl(data));
+    $target.prepend(compiledTmpl(data));
   },
   getTemplate: function (name) {
     return templates[name];
