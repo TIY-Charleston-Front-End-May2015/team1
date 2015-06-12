@@ -80,7 +80,7 @@ var page = {
       }
     });
 
-    page.loadMessages()
+    page.loadMessages();
 
   },
   newmessage: function(event) {
