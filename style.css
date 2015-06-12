@@ -67,6 +67,11 @@ ul {
 .messageInput {
   font-size: 18px; }
 
+.gliphicon-remove-circle {
+  color: red;
+  padding-right: 5px;
+  font-size: 14px; }
+
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
   .fullscreen {
     left: 0;

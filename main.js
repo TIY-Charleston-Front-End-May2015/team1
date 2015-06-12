@@ -12,10 +12,8 @@ var $userForm = $('#usernameForm')
 var $userInput = $('#usernameInput')
 var user = "";
 
-
-
 var page = {
-  url: "http://tiy-fee-rest.herokuapp.com/collections/YouveGotMail13",
+  url: "http://tiy-fee-rest.herokuapp.com/collections/YouveGotMail15",
   init: function () {
     page.initStyling();
     page.initEvents();
