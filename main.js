@@ -6,10 +6,10 @@ var $list = $('.list-group');
 var $li = $('.message');
 var $messageForm = $('.messageForm')
 var $addInput = $('.messageInput')
+var $loginOverlay = $('.fullscreen')
+var $usernameInput = $('.usernameInput')
 var $userForm = $('#usernameForm')
 var $userInput = $('#usernameInput')
-
-
 
 var page = {
   url: "http://tiy-fee-rest.herokuapp.com/collections/YouveGotMail",
@@ -21,6 +21,7 @@ var page = {
     page.loadMessages();
   },
   initEvents: function() {
+    $('.pageWrapper').on('submit', $loginOverlay, page.hideOverlay );
     $messageForm.submit(page.newmessage);
     $userForm.submit(page.addUser);
   },
@@ -58,6 +59,10 @@ var page = {
     // clear form
     $addInput.val("");
   },
+  hideOverlay: function(event) {
+    event.preventDefault;
+    $loginOverlay.addClass('hide');
+  },
   createMessage: function (newMessage) {
     $.ajax({
       url: page.url,
@@ -89,5 +94,4 @@ var page = {
   getTemplate: function (name) {
     return templates[name];
   }
-
 }
