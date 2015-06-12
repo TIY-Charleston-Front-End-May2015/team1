@@ -14,7 +14,6 @@ var user = "";
 
 
 
-
 var page = {
   url: "http://tiy-fee-rest.herokuapp.com/collections/YouveGotMail12",
   init: function () {
@@ -28,6 +27,7 @@ var page = {
     $('.pageWrapper').on('submit', $loginOverlay, page.hideOverlay );
     $messageForm.submit(page.newmessage);
     $userForm.submit(page.addUser);
+
   },
 
   addNewMessageToDOM: function (msg) {
