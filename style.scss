@@ -19,17 +19,20 @@ ul {
 .fullscreen {
   display: block;
   position: fixed;
-  width: 100%;
-  height: 100%;
+  left: 25%;
+  width: 50%;
+  height: 200px;
+  min-width: 400px;
   background-color: rgba(104, 138, 148, 0.98);
+  border-radius: 2%;
 }
 
 .input-group {
   text-align: center;
   font-size: 30px;
-  width: 70%;
+  width: 50%;
   margin: auto;
-  margin-top: 150px;
+  margin-top: 50px;
 }
 
 .main-container {
@@ -80,4 +83,16 @@ ul {
 
 .messageInput {
   font-size: 18px;
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  .fullscreen {
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .input-group {
+    width: 90%;
+  }
 }
