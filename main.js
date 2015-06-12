@@ -10,53 +10,60 @@ var $loginOverlay = $('.fullscreen')
 var $usernameInput = $('.usernameInput')
 var $userForm = $('#usernameForm')
 var $userInput = $('#usernameInput')
-var timeStamp = ""
+var user = "";
+
 
 
 
 var page = {
-  url: "http://tiy-fee-rest.herokuapp.com/collections/YouveGotMail",
+  url: "http://tiy-fee-rest.herokuapp.com/collections/YouveGotMail12",
   init: function () {
     page.initStyling();
     page.initEvents();
   },
   initStyling: function(){
-    page.loadMessages();
+
   },
   initEvents: function() {
     $('.pageWrapper').on('submit', $loginOverlay, page.hideOverlay );
     $messageForm.submit(page.newmessage);
     $userForm.submit(page.addUser);
   },
+
   addNewMessageToDOM: function (msg) {
-    page.loadTemplate("message", msg, $list);
+    if (msg.hasOwnProperty('msgBody')) {
+      page.loadTemplate("message", msg, $list);
+    }
+
   },
   addAllMessagesToDOM: function (msgCollection) {
-    $('target').html('');
+    // $('target').html('');
     _.each(msgCollection, page.addNewMessageToDOM);
   },
   addUser: function (event) {
+    user = "";
     event.preventDefault();
     var newUser = {
-    user: $userInput.val(),
+    sender: $userInput.val()
     }
     $.ajax({
       url: page.url,
       method: 'POST',
-      data: {username: newUser.user},
+      data: {username: newUser.sender},
       success: function (data) {
-
+        user += newUser.sender;
       },
       error: function (err) {
       }
     });
+
+    page.loadMessages();
   },
   newmessage: function(event) {
     event.preventDefault();
-    // build an object that looks like our original data
-    var newUser = {
-    user: $addInput.val()
-    // sender:
+    var newMessage = {
+      msgBody: $addInput.val(),
+      sender: user
     }
     page.createMessage(newMessage);
     // clear form
@@ -67,6 +74,7 @@ var page = {
     $loginOverlay.addClass('hide');
   },
   createMessage: function (newMessage) {
+
     $.ajax({
       url: page.url,
       method: 'POST',
