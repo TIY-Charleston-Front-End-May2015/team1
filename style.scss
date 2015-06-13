@@ -110,6 +110,10 @@ ul {
 
 .userChangeForm {
   display: inline;
+  outline: none;
+}
+:focus {
+  outline: none;
 }
 .messageInput {
   font-size: 18px;

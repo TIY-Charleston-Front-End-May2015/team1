@@ -87,7 +87,11 @@ ul {
   background-color: #F5F5F5; }
 
 .userChangeForm {
-  display: inline; }
+  display: inline;
+  outline: none; }
+
+:focus {
+  outline: none; }
 
 .messageInput {
   font-size: 18px; }
