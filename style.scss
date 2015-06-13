@@ -6,7 +6,7 @@ body {
   font-size: 20px;
   background-image: url('https://snap-photos.s3.amazonaws.com/img-thumbs/960w/CUXAJVH2IJ.jpg');
   background-size: cover;
-  
+
 }
 
 
@@ -84,6 +84,8 @@ ul {
 
 
 
+
+
 .glyphicon-remove-circle {
   margin-right: 5px;
   color: red;
@@ -100,7 +102,15 @@ ul {
   color: lightgray;
 }
 
+.userChange {
+  display: inline;
+  background-color: #F5F5F5;
 
+}
+
+.userChangeForm {
+  display: inline;
+}
 .messageInput {
   font-size: 18px;
 }

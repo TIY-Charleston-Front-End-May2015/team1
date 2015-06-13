@@ -4,17 +4,24 @@
 var templates = {};
 
 // single message template
-templates.addUserMessage = [
+templates.addOtherMessage = [
   "<li class='list-group-item message'>",
-  "<a href=#><span class='glyphicon glyphicon-remove-circle'></span></a>",
   "<span class='username'>@<%= sender %>: </span>",
-  "<span class='listItem'><%= msgBody %></span>",
+  "<span id = <%= _id %> class='listItem <%= sender %>'><%= msgBody %></span>",
   "</li>"
 ].join("");
 
-templates.addOtherMessages = [
+
+templates.addUserMessage = [
   "<li class='list-group-item message'>",
+  "<span class='glyphicon glyphicon-remove-circle'></span>",
   "<span class='username'>@<%= sender %>: </span>",
-  "<span class='listItem'><%= msgBody %></span>",
+  "<span id = <%= _id %> class='listItem <%= sender %>'><%= msgBody %></span>",
   "</li>"
+].join("");
+
+templates.addUsername = [
+  "<h1 class='hello-user'>Hello, @<form class = 'userChangeForm'><input class='userChange' placeholder='<%= username %>'</input></form>!</h1>"
+
+
 ].join("");
