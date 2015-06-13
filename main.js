@@ -1,23 +1,3 @@
-$(document).ready(function(){
-  page.init();
-  if (($loginOverlay).hasClass('ignore')) {
-    setInterval(function (){
-      $.ajax({
-        url: page.url,
-        method: 'GET',
-        success: function (data) {
-          page.getAllContent();
-          $(list).html("");
-          page.addAllMessagesToDOM2(data.reverse())
-          console.log("it works?")
-        },
-        error: function (err) {
-          console.log('error')
-        }
-      })
-    }, 2000)
-  };
-});
 // variables
 var $list = $('.list-group');
 var $li = $('.message');
@@ -28,12 +8,41 @@ var $usernameInput = $('.usernameInput')
 var $userForm = $('#usernameForm')
 var $userInput = $('#usernameInput')
 var user = "";
+var currentContent = [];
 
 
+
+
+
+
+
+
+
+$(document).ready(function(){
+  page.init();
+  $('.fullscreen').on('submit', $('#usernameInput'), function (){
+    setInterval(function (){
+      $.ajax({
+        url: page.url,
+        method: 'GET',
+        success: function (data) {
+          var updatedContent = data;
+          updatedContent = _.filter(data, function(obj){ return !_.findWhere(currentContent, obj); });
+          console.log(updatedContent)
+          page.addAllMessagesToDOM(updatedContent)
+          page.getAllContent();
+        },
+        error: function (err) {
+          console.log('error')
+        }
+      })
+    }, 500)
+  });
+});
 
 
 var page = {
-  url: "http://tiy-fee-rest.herokuapp.com/collections/YouveGotMail17",
+  url: "http://tiy-fee-rest.herokuapp.com/collections/YouveGotMail25",
   init: function () {
     page.initStyling();
     page.initEvents();
@@ -48,14 +57,19 @@ var page = {
     $('.pageWrapper').on('submit', $loginOverlay, page.hideOverlay );
     $messageForm.submit(page.newmessage);
     $userForm.submit(page.addUser);
+    $('ul').on('click', '.glyphicon', page.deleteMessage);
 
   },
-
+  addUsernameToDOM: function (user) {
+    page.loadTemplate("addUsername", user, $('.hello-user'));
+  },
   addNewMessageToDOM: function (msg) {
-    if (msg.hasOwnProperty('msgBody')) {
+    if (msg.hasOwnProperty('msgBody') && msg.sender === user) {
       page.loadTemplate("addUserMessage", msg, $list);
     }
-
+    else if (msg.hasOwnProperty('msgBody') && msg.sender !== user) {
+      page.loadTemplate("addOtherMessage", msg, $list);
+    }
   },
 
   addAllMessagesToDOM: function (msgCollection) {
@@ -64,18 +78,7 @@ var page = {
 
 
   },
-  addNewMessageToDOM2: function (msg) {
-    if (msg.hasOwnProperty('msgBody')) {
-      page.loadTemplate("addOtherMessages", msg, $list);
-    }
 
-  },
-  addAllMessagesToDOM2: function (msgCollection) {
-    // $('target').html('');
-    _.each(msgCollection, page.addNewMessageToDOM2);
-
-
-  },
   addUser: function (event) {
     user = "";
     event.preventDefault();
@@ -88,12 +91,14 @@ var page = {
       data: {username: newUser.sender},
       success: function (data) {
         user += newUser.sender;
+        page.addUsernameToDOM(data);
       },
       error: function (err) {
       }
     });
 
     page.loadMessages();
+
 
   },
   newmessage: function(event) {
@@ -117,7 +122,7 @@ var page = {
       method: 'POST',
       data: newMessage,
       success: function (data) {
-        page.addNewMessageToDOM(data);
+
       },
       error: function (err) {
       }
@@ -128,19 +133,42 @@ var page = {
       url: page.url,
       method: 'GET',
       success: function (data) {
-        page.addAllMessagesToDOM2(data);
+        page.addAllMessagesToDOM(data);
+        currentContent = data;
+
       },
       error: function (err) {
       }
     });
+  },
+  deleteMessage: function () {
+    event.preventDefault();
+    var msgId = $(this).next().next().attr('id').toString();
+    var removeThis = $(this).parent();
+    console.log(msgId);
+    $.ajax({
+      url: page.url + '/' + msgId,
+      method: 'DELETE',
+      success: function (data) {
+        removeThis.remove();
+      },
+
+
+      error: function (err) {
+      }
+    });
+
+
   },
   getAllContent: function () {
   $.ajax({
     url: page.url,
     method: 'GET',
     success: function (data) {
-      idArray = data
+      currentContent = data;
     },
+
+
     error: function (err) {
     }
   });

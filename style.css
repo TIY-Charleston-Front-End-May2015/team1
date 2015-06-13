@@ -82,6 +82,13 @@ ul {
   text-decoration: line-through;
   color: lightgray; }
 
+.userChange {
+  display: inline;
+  background-color: #F5F5F5; }
+
+.userChangeForm {
+  display: inline; }
+
 .messageInput {
   font-size: 18px; }
 
