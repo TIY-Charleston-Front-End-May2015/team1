@@ -1,13 +1,14 @@
 $(document).ready(function(){
   page.init();
-  if (!($loginOverlay).hasClass('ignore')) {
+  if (($loginOverlay).hasClass('ignore')) {
     setInterval(function (){
       $.ajax({
         url: page.url,
         method: 'GET',
         success: function (data) {
+          page.getAllContent();
           $(list).html("");
-          page.addAllMessagesToDOM(data.reverse())
+          page.addAllMessagesToDOM2(data.reverse())
           console.log("it works?")
         },
         error: function (err) {
@@ -17,7 +18,6 @@ $(document).ready(function(){
     }, 2000)
   };
 });
-
 // variables
 var $list = $('.list-group');
 var $li = $('.message');
@@ -33,7 +33,7 @@ var user = "";
 
 
 var page = {
-  url: "http://tiy-fee-rest.herokuapp.com/collections/YouveGotMail16",
+  url: "http://tiy-fee-rest.herokuapp.com/collections/YouveGotMail17",
   init: function () {
     page.initStyling();
     page.initEvents();
@@ -53,13 +53,26 @@ var page = {
 
   addNewMessageToDOM: function (msg) {
     if (msg.hasOwnProperty('msgBody')) {
-      page.loadTemplate("message", msg, $list);
+      page.loadTemplate("addUserMessage", msg, $list);
     }
 
   },
+
   addAllMessagesToDOM: function (msgCollection) {
     // $('target').html('');
     _.each(msgCollection, page.addNewMessageToDOM);
+
+
+  },
+  addNewMessageToDOM2: function (msg) {
+    if (msg.hasOwnProperty('msgBody')) {
+      page.loadTemplate("addOtherMessages", msg, $list);
+    }
+
+  },
+  addAllMessagesToDOM2: function (msgCollection) {
+    // $('target').html('');
+    _.each(msgCollection, page.addNewMessageToDOM2);
 
 
   },
@@ -88,6 +101,7 @@ var page = {
     var newMessage = {
       msgBody: $addInput.val(),
       sender: user
+
     }
     page.createMessage(newMessage);
     $addInput.val("");
@@ -114,12 +128,23 @@ var page = {
       url: page.url,
       method: 'GET',
       success: function (data) {
-        page.addAllMessagesToDOM(data);
+        page.addAllMessagesToDOM2(data);
       },
       error: function (err) {
       }
     });
   },
+  getAllContent: function () {
+  $.ajax({
+    url: page.url,
+    method: 'GET',
+    success: function (data) {
+      idArray = data
+    },
+    error: function (err) {
+    }
+  });
+},
   loadTemplate: function (tmplName, data, $target) {
     var compiledTmpl = _.template(page.getTemplate(tmplName));
 
