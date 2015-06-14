@@ -10,6 +10,7 @@ var $userInput = $('#usernameInput')
 var user = "";
 var currentContent = [];
 var $userChangeForm = $('.userChangeForm')
+var bgURL;
 
 
 
@@ -25,13 +26,9 @@ $(document).ready(function(){
         success: function (data) {
           var updatedContent = data;
           updatedContent = _.filter(data, function(obj){ return !_.findWhere(currentContent, obj); });
-          console.log(updatedContent)
           page.addAllMessagesToDOM(updatedContent)
           page.getAllContent();
           $(".scrollFix").prop({ scrollTop: $(".scrollFix").prop("scrollHeight") });
-
-
-
         },
         error: function (err) {
           console.log('error')
@@ -47,10 +44,9 @@ var page = {
   init: function () {
     page.initStyling();
     page.initEvents();
-
-
   },
   initStyling: function(){
+    page.getBackgroundImage();
 
   },
   initEvents: function() {
@@ -140,6 +136,18 @@ var page = {
       data: newMessage,
       success: function (data) {
         page.addNewMessageToDOM;
+      },
+      error: function (err) {
+      }
+    });
+  },
+  getBackgroundImage: function() {
+    $.ajax({
+      url: 'http://www.splashbase.co/api/v1/images/random',
+      method: 'GET',
+      success: function (data) {
+        bgURL = data.url;
+        $('body').css('background-image', 'url(' + bgURL + ')');
       },
       error: function (err) {
       }

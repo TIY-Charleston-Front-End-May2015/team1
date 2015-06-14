@@ -22,6 +22,4 @@ templates.addUserMessage = [
 
 templates.addUsername = [
   "<input type = 'text' class='userChange' placeholder='<%= username %>'</input>"
-
-
 ].join("");
