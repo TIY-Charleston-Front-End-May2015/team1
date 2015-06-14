@@ -21,7 +21,7 @@ templates.addUserMessage = [
 ].join("");
 
 templates.addUsername = [
-  "<h1 class='hello-user'>Hello, @<form class = 'userChangeForm'><input class='userChange' placeholder='<%= username %>'</input></form>!</h1>"
+  "<input type = 'text' class='userChange' placeholder='<%= username %>'</input>"
 
 
 ].join("");

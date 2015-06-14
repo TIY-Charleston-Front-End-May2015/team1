@@ -58,6 +58,9 @@ ul {
 }
 .hello-user {
   font-family: Futura;
+  .appTitle {
+    text-align: center; }
+
 }
 .usernameInput {
   font-family: Futura;
@@ -77,13 +80,14 @@ ul {
   font-family: Futura;
 }
 
-#list {
+.scrollFix {
   max-height: 450px;
   overflow: scroll;
 }
 
-
-
+.appTitle {
+  text-align: center;
+}
 
 
 .glyphicon-remove-circle {
