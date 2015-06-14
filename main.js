@@ -43,7 +43,7 @@ $(document).ready(function(){
 
 
 var page = {
-  url: "http://tiy-fee-rest.herokuapp.com/collections/YouveGotMail28",
+  url: "http://tiy-fee-rest.herokuapp.com/collections/ChaatAapp",
   init: function () {
     page.initStyling();
     page.initEvents();
@@ -59,8 +59,7 @@ var page = {
     $userForm.submit(page.addUser);
     $('ul').on('click', '.glyphicon', page.deleteMessage);
     $userChangeForm.submit(page.updateUser);
-
-
+    page.showDeleteBtn();
   },
   addUsernameToDOM: function (user) {
 
@@ -159,6 +158,12 @@ var page = {
       }
     });
   },
+  showDeleteBtn: function (){
+    $('ul').on('click', $('.userMessage'), function(){
+      $('.glyphicon').toggleClass('hide')
+    })
+  },
+
   deleteMessage: function () {
     event.preventDefault();
     var msgId = $(this).next().next().attr('id').toString();
