@@ -3,12 +3,12 @@
 }
 
 body {
+  font-family: 'Lato', sans-serif;
   font-size: 20px;
   background-image: url('https://snap-photos.s3.amazonaws.com/img-thumbs/960w/CUXAJVH2IJ.jpg');
   background-size: cover;
 
 }
-
 
 ul {
   -webkit-padding-start: 0;
@@ -37,6 +37,10 @@ ul {
   margin: auto;
   margin-top: 50px;
 }
+.appName {
+  font-size: 48px;
+  font-weight: 900;
+}
 
 .main-container {
   max-width: 800px;
@@ -52,18 +56,20 @@ ul {
   width: 90%;
   margin: auto;
 }
+.userMessage {
+  background-color: #F5F5F5;
+}
 .form-control {
   display: inline-block;
-  width: 90%;
 }
 .hello-user {
-  font-family: Futura;
-  .appTitle {
-    text-align: center; }
+  font-weight: 100;
+.appTitle {
+  text-align: center; }
 
 }
 .usernameInput {
-  font-family: Futura;
+  font-weight: 100;
   font-size: 28px;
 }
 
@@ -76,8 +82,8 @@ ul {
 }
 
 .list-group-item {
-  border-bottom: 5px solid lightgray;
-  font-family: Futura;
+  border-bottom: 1px solid lightgray;
+  font-weight: 400;
 }
 
 .scrollFix {
@@ -106,11 +112,13 @@ ul {
   color: lightgray;
 }
 
+
 .userChange {
   display: inline;
   background-color: #F5F5F5;
 
 }
+
 
 .userChangeForm {
   display: inline;
