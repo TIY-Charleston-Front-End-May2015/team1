@@ -5,13 +5,13 @@
   <meta charset="UTF-8">
   <title>To Do</title>
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
-<!--   <link rel="stylesheet" href="bower_components/octicons/octicons/octicons.css"> -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="pageWrapper">
 <!--   login prompt -->
   <div class="fullscreen usernamePrompt">
+
     <form id="usernameForm" action="#">
     <div class="input-group input-group-lg">
     <span class="input-group-addon" id="sizing-addon1">@</span>
@@ -23,11 +23,13 @@
   <div class="main-container">
     <div class="panel panel-default">
     <!-- Main Content -->
-      <div class="panel-heading"><h1 class="hello-user"></h1></div>
-      <!-- Messages displayed here -->
+
+      <div class="panel-heading"><h3 class='hello-user'>Hello, @<form class = 'userChangeForm' action = '#'></form>!</h3></div>
+    <div class= "scrollFix"><!-- Messages displayed here -->
       <ul class="list-group" id="list">
 
       </ul>
+    </div>
       <form class="messageForm" action=""><div class="form-group"><button class="btn">Send</button><input name="messageInput" type="text" class="form-control messageInput" placeholder="Write your message here..."></div>
       </form>
 

@@ -9,17 +9,14 @@ var $userForm = $('#usernameForm')
 var $userInput = $('#usernameInput')
 var user = "";
 var currentContent = [];
-
-
-
-
-
-
+var $userChangeForm = $('.userChangeForm')
 
 
 
 $(document).ready(function(){
   page.init();
+
+
   $('.fullscreen').on('submit', $('#usernameInput'), function (){
     setInterval(function (){
       $.ajax({
@@ -31,18 +28,22 @@ $(document).ready(function(){
           console.log(updatedContent)
           page.addAllMessagesToDOM(updatedContent)
           page.getAllContent();
+          $(".scrollFix").prop({ scrollTop: $(".scrollFix").prop("scrollHeight") });
+
+
+
         },
         error: function (err) {
           console.log('error')
         }
       })
-    }, 500)
+    }, 600)
   });
-});
+})
 
 
 var page = {
-  url: "http://tiy-fee-rest.herokuapp.com/collections/YouveGotMail25",
+  url: "http://tiy-fee-rest.herokuapp.com/collections/YouveGotMail28",
   init: function () {
     page.initStyling();
     page.initEvents();
@@ -53,15 +54,17 @@ var page = {
 
   },
   initEvents: function() {
-
     $('.pageWrapper').on('submit', $loginOverlay, page.hideOverlay );
     $messageForm.submit(page.newmessage);
     $userForm.submit(page.addUser);
     $('ul').on('click', '.glyphicon', page.deleteMessage);
+    $userChangeForm.submit(page.updateUser);
+
 
   },
   addUsernameToDOM: function (user) {
-    page.loadTemplate("addUsername", user, $('.hello-user'));
+
+    page.loadTemplate("addUsername", user, $('.userChangeForm'));
   },
   addNewMessageToDOM: function (msg) {
     if (msg.hasOwnProperty('msgBody') && msg.sender === user) {
@@ -101,6 +104,21 @@ var page = {
 
 
   },
+  updateUser: function () {
+    event.preventDefault();
+
+    var newUser = {
+      username: $('.userChange').val(),
+    };
+
+
+    user = "";
+    user = newUser.username;
+    $('.userChangeForm').html("");
+    page.addUsernameToDOM(newUser);
+
+
+  },
   newmessage: function(event) {
     event.preventDefault();
     var newMessage = {
@@ -122,7 +140,7 @@ var page = {
       method: 'POST',
       data: newMessage,
       success: function (data) {
-
+        page.addNewMessageToDOM;
       },
       error: function (err) {
       }
@@ -133,7 +151,7 @@ var page = {
       url: page.url,
       method: 'GET',
       success: function (data) {
-        page.addAllMessagesToDOM(data);
+        page.addAllMessagesToDOM(data.reverse());
         currentContent = data;
 
       },
